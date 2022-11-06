@@ -12,7 +12,7 @@ const Footer: FC = () => {
         <section className="col-lg-3 col-md-5">
           <Image src={logo} alt="Logo" />
           <p className="text-uppercase text-secondary mt-2">
-            <span className="text-primary">LA VIE</span> We're dedicated to
+            <span className="text-primary">LA VIE</span> We{"'"}re dedicated to
             giving you the very best of plants, with a focus on dependability
           </p>
         </section>
@@ -79,6 +79,7 @@ const Footer: FC = () => {
               <a
                 href="https://facebook.com"
                 target="_blank"
+                rel="noreferrer"
                 className="nav-link"
               >
                 <GrFacebookOption />
@@ -88,6 +89,7 @@ const Footer: FC = () => {
               <a
                 href="https://instagram.com"
                 target="_blank"
+                rel="noreferrer"
                 className="nav-link"
               >
                 <GrInstagram />
@@ -97,6 +99,7 @@ const Footer: FC = () => {
               <a
                 href="https://twitter.com"
                 target="_blank"
+                rel="noreferrer"
                 className="nav-link"
               >
                 <GrTwitter />
