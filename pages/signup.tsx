@@ -1,14 +1,16 @@
 import Head from "next/head";
-import MainLayout from "../layouts/MainLayout";
+import AuthLayout from "../layouts/AuthLayout";
 
 const Signup = () => {
   return (
-    <MainLayout>
+    <AuthLayout>
       <Head>
         <title>Signup - La Vie</title>
       </Head>
-      <h1>Signup</h1>
-    </MainLayout>
+      <div className="container">
+        <h1>Signup</h1>
+      </div>
+    </AuthLayout>
   );
 };
 

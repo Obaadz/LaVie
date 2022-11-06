@@ -5,11 +5,11 @@ import logo from "../../images/logo.png";
 import { StyledHeader, StyledNav, StyledBtn } from "./styles";
 
 const Header: FC = () => {
-  const [headerHeight, setHeaderHeight] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(76);
   const headerRef: MutableRefObject<HTMLElement | undefined> = useRef();
 
   function getHeaderHeightOrZero() {
-    return headerRef?.current?.clientHeight || 0;
+    return headerRef?.current?.clientHeight || 76;
   }
 
   useEffect(() => {
@@ -18,7 +18,8 @@ const Header: FC = () => {
     const resizeObserver = new ResizeObserver((entries) => {
       const currentHeaderHeight = getHeaderHeightOrZero();
 
-      setHeaderHeight(currentHeaderHeight);
+      if (headerHeight !== currentHeaderHeight)
+        setHeaderHeight(currentHeaderHeight);
     });
 
     resizeObserver.observe(headerRef.current);
@@ -26,7 +27,7 @@ const Header: FC = () => {
     return function cleanup() {
       resizeObserver.disconnect();
     };
-  }, [headerRef]);
+  }, []);
 
   return (
     <>
@@ -79,14 +80,16 @@ const Header: FC = () => {
                   </Link>
                 </li>
               </ul>
-              <StyledBtn className="btn btn-success px-5 px-lg-4 ms-4 ms-lg-0">
-                Sign Up
-              </StyledBtn>
+              <Link href="/signup">
+                <StyledBtn className="btn btn-success px-5 px-lg-4 ms-4 ms-lg-0">
+                  Sign Up
+                </StyledBtn>
+              </Link>
             </div>
           </div>
         </StyledNav>
       </StyledHeader>
-      <div style={{ height: headerHeight }}></div>
+      <div style={{ height: headerHeight < 76 ? 76 : headerHeight }}></div>
     </>
   );
 };

@@ -1,17 +1,16 @@
 import Head from "next/head";
-import React from "react";
-import MainLayout from "../layouts/MainLayout";
+import AuthLayout from "../layouts/AuthLayout";
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   return (
-    <MainLayout>
+    <AuthLayout>
       <Head>
         <title>Login - La Vie</title>
       </Head>
-      <h1>Login</h1>
-    </MainLayout>
+      <div className="container">
+        <h1>Login</h1>
+      </div>
+    </AuthLayout>
   );
 };
 
