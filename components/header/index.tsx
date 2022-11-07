@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import logo from "../../images/logo.png";
 import { StyledHeader, StyledNav, StyledBtn } from "./styles";
 
@@ -8,7 +14,7 @@ const Header: FC = () => {
   const [headerHeight, setHeaderHeight] = useState(76);
   const headerRef: MutableRefObject<HTMLElement | undefined> = useRef();
 
-  function getHeaderHeightOrZero() {
+  function getHeaderHeight() {
     return headerRef?.current?.clientHeight || 76;
   }
 
@@ -16,7 +22,7 @@ const Header: FC = () => {
     if (!headerRef.current) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
-      const currentHeaderHeight = getHeaderHeightOrZero();
+      const currentHeaderHeight = getHeaderHeight();
 
       if (headerHeight !== currentHeaderHeight)
         setHeaderHeight(currentHeaderHeight);
@@ -28,7 +34,6 @@ const Header: FC = () => {
       resizeObserver.disconnect();
     };
   }, []);
-
   return (
     <>
       <StyledHeader ref={headerRef} className="position-fixed vw-100 shadow-sm">
@@ -89,9 +94,11 @@ const Header: FC = () => {
           </div>
         </StyledNav>
       </StyledHeader>
-      <div style={{ height: headerHeight < 76 ? 76 : headerHeight }}></div>
+      <div style={{ height: headerHeight }}></div>
     </>
   );
 };
 
-export default Header;
+const MemoizedHeader = React.memo(Header);
+
+export default MemoizedHeader;
