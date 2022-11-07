@@ -10,7 +10,7 @@ type props = {
 
 const AuthLayout = ({ children }: props) => {
   const router = useRouter();
-  const isPageLoaidng = usePageLoading(500);
+  const isPageLoading = usePageLoading(500);
 
   return (
     <>
@@ -42,7 +42,7 @@ const AuthLayout = ({ children }: props) => {
         </div>
       </StyledNav>
       <main>
-        {isPageLoaidng ? <div className="container">Loading...</div> : children}
+        {isPageLoading ? <div className="container">Loading...</div> : children}
       </main>
     </>
   );
