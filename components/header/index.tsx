@@ -8,7 +8,8 @@ import React, {
   useState,
 } from "react";
 import logo from "../../images/logo.png";
-import { StyledHeader, StyledNav, StyledBtn } from "./styles";
+import AuthBtn from "./AuthBtn";
+import { StyledHeader, StyledNav } from "./styles";
 
 const Header: FC = () => {
   const [headerHeight, setHeaderHeight] = useState(76);
@@ -85,11 +86,8 @@ const Header: FC = () => {
                   </Link>
                 </li>
               </ul>
-              <Link href="/signup">
-                <StyledBtn className="btn btn-success px-5 px-lg-4 ms-4 ms-lg-0">
-                  Sign Up
-                </StyledBtn>
-              </Link>
+
+              <AuthBtn />
             </div>
           </div>
         </StyledNav>
