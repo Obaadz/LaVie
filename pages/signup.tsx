@@ -7,9 +7,7 @@ const Signup = () => {
       <Head>
         <title>Signup - La Vie</title>
       </Head>
-      <div className="container">
-        <h1>Signup</h1>
-      </div>
+      <h1>Signup</h1>
     </AuthLayout>
   );
 };

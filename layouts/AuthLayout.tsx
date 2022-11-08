@@ -42,7 +42,9 @@ const AuthLayout = ({ children }: props) => {
         </div>
       </StyledNav>
       <main>
-        {isPageLoading ? <div className="container">Loading...</div> : children}
+        <div className="container">
+          {isPageLoading ? "Loading..." : children}
+        </div>
       </main>
     </>
   );
