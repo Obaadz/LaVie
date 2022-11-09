@@ -9,4 +9,9 @@ const usersSchema = new Schema({
 
 const Users = mongoose.models.users || mongoose.model("users", usersSchema);
 
+const mySchemas = {
+  Users,
+};
+
 export { Users };
+export default mySchemas;
