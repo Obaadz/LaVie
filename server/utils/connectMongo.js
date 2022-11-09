@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const connectMongo = () =>
+export default function connectMongo() {
   mongoose
     .connect(process.env.DB_URI, {
       useNewUrlParser: true,
@@ -12,3 +12,4 @@ export const connectMongo = () =>
     .catch((err) => {
       console.log("ERROR", err);
     });
+}
