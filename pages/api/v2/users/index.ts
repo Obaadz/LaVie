@@ -39,21 +39,3 @@ const METHODS: RequestMethodsManager = {
   POST,
   ERROR,
 };
-
-class Nmethod implements RequestMethodsManager {
-  [key: string]: IRequestMethod;
-  ERROR: IRequestMethod;
-
-  constructor(...methods: { [key: string]: IRequestMethod }[]) {
-    methods.forEach((method) => {
-      const methodName = Object.keys(method)[0];
-
-      this[methodName] = method[methodName];
-    });
-
-    this.ERROR = ERROR;
-  }
-}
-
-const TEST = new Nmethod({ POST });
-console.log(TEST);
