@@ -1,4 +1,5 @@
 import Head from "next/head";
+import SignUpForm from "../components/forms/signup";
 import AuthLayout from "../layouts/AuthLayout";
 
 const Signup = () => {
@@ -7,7 +8,7 @@ const Signup = () => {
       <Head>
         <title>Signup - La Vie</title>
       </Head>
-      <h1>Signup</h1>
+      <SignUpForm />
     </AuthLayout>
   );
 };
