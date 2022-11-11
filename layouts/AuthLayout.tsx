@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode, Suspense } from "react";
+import { ReactNode, Suspense, useEffect } from "react";
+import OAuth from "../components/forms/OAuth";
 import Header from "../components/header";
 import usePageLoading from "../hooks/usePageLoading";
 import { StyledNav } from "./styles";
@@ -11,6 +12,14 @@ type props = {
 const AuthLayout = ({ children }: props) => {
   const router = useRouter();
   const isPageLoading = usePageLoading(500);
+
+  useEffect(() => {
+    setBodyBackgroundColor("#fafbfb");
+
+    return function cleanup() {
+      setBodyBackgroundColor("unset");
+    };
+  });
 
   return (
     <>
@@ -42,12 +51,17 @@ const AuthLayout = ({ children }: props) => {
         </div>
       </StyledNav>
       <main>
-        <div className="container">
+        <div className="container mb-4">
           {isPageLoading ? "Loading..." : children}
+          <OAuth />
         </div>
       </main>
     </>
   );
 };
+
+function setBodyBackgroundColor(color: string) {
+  document.body.style.backgroundColor = color;
+}
 
 export default AuthLayout;
