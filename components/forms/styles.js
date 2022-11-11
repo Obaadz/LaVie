@@ -20,8 +20,8 @@ export const StyledForm = styled.form`
     color: #6f6f6f;
   }
 
-  .form-control:focus,button:focus {
+  .form-control:focus,
+  button:focus {
     box-shadow: 0 0 0 0.25rem rgb(151 151 151 / 25%);
   }
-	}
 `;
