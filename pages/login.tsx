@@ -1,4 +1,5 @@
 import Head from "next/head";
+import LoginForm from "../components/forms/login";
 import AuthLayout from "../layouts/AuthLayout";
 
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
       <Head>
         <title>Login - La Vie</title>
       </Head>
-      <h1>Login</h1>
+      <LoginForm />
     </AuthLayout>
   );
 };
