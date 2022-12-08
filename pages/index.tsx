@@ -1,10 +1,11 @@
 import Head from "next/head";
+import Landing from "../components/landing";
 import MainLayout from "../layouts/MainLayout";
 
 export default function Home() {
   return (
     <MainLayout>
-      <h1>Home page</h1>
+      <Landing />
     </MainLayout>
   );
 }
