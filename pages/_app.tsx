@@ -22,3 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+export function setBodyBackgroundColor(color: string) {
+  document.body.style.backgroundColor = color;
+}

@@ -4,6 +4,7 @@ import { ReactNode, Suspense, useEffect } from "react";
 import OAuth from "../components/forms/OAuth";
 import Header from "../components/header";
 import usePageLoading from "../hooks/usePageLoading";
+import { setBodyBackgroundColor } from "../pages/_app";
 import { StyledNav } from "./styles";
 type props = {
   children: ReactNode;
@@ -59,9 +60,5 @@ const AuthLayout = ({ children }: props) => {
     </>
   );
 };
-
-function setBodyBackgroundColor(color: string) {
-  document.body.style.backgroundColor = color;
-}
 
 export default AuthLayout;
