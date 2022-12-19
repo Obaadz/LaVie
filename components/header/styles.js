@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledHeader = styled.header`
   font-family: "Poppins", sans-serif;
+  z-index: 999;
 `;
 
 export const StyledNav = styled.nav`

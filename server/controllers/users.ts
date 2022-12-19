@@ -44,4 +44,4 @@ export async function addUserToDB(
     });
 
   response.status(responseBody.status).send(responseBody);
-}
+}     
