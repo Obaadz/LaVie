@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledPopularCategories = styled.section`
+export const StyledBestSeller = styled.section`
   font-family: "Poppins", sans-serif;
 
   @media (max-width: 767px) {
