@@ -1,6 +1,7 @@
 import Head from "next/head";
 import BestSeller from "../components/best_seller";
 import Landing from "../components/landing";
+import LastBlogs from "../components/last_blogs";
 import PopularCategories from "../components/popular_categories";
 import MainLayout from "../layouts/MainLayout";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Landing />
       <PopularCategories />
       <BestSeller />
+      <LastBlogs />
     </MainLayout>
   );
 }
