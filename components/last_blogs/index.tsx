@@ -11,8 +11,8 @@ const LastBlogs: FC = () => {
     <StyledLastBlogs className="py-5">
       <div className="container">
         <SectionHeader title="Blogs" />
-        <div className="card-group row gap-5">
-          <div className="card shadow-sm col-12 col-lg-3">
+        <div className="card-group row flex-column flex-md-row gap-4 justify-content-center align-items-center text-center text-lg-start gap-md-2 gap-lg-5">
+          <div className="card shadow-sm col-10 col-lg-3 px-5 px-md-0">
             <Image
               src={last_blogs1}
               className="card-img-top"
@@ -28,7 +28,7 @@ const LastBlogs: FC = () => {
               </p>
             </div>
           </div>
-          <div className="card shadow-sm col-12 col-lg-3">
+          <div className="card shadow-sm col-10 col-lg-3 px-5 px-md-0">
             <Image
               src={last_blogs2}
               className="card-img-top"
@@ -44,7 +44,7 @@ const LastBlogs: FC = () => {
               </p>
             </div>
           </div>
-          <div className="card shadow-sm col-12 col-lg-3">
+          <div className="card shadow-sm col-10 col-lg-3 px-5 px-md-0">
             <Image
               src={last_blogs3}
               className="card-img-top"
