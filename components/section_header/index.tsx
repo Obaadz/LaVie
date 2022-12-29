@@ -7,7 +7,7 @@ type Props = {
 
 const SectionHeader: FC<Props> = ({ title, isTwoLines }) => {
   return (
-    <StyledSectionHeader className={`${isTwoLines && "two-lines"} ps-5 pb-3`}>
+    <StyledSectionHeader className={`${isTwoLines && "two-lines"} pb-3`}>
       {title}
     </StyledSectionHeader>
   );

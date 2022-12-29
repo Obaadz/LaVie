@@ -19,7 +19,7 @@ export const StyledSectionHeader = styled.h2`
 
     &.two-lines::after {
       top: 20%;
-      right: 25%;
+      right: 40%;
     }
   }
 `;
