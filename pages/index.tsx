@@ -1,4 +1,3 @@
-import Head from "next/head";
 import BestSeller from "../components/best_seller";
 import Landing from "../components/landing";
 import LastBlogs from "../components/last_blogs";
