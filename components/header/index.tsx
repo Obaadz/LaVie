@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, {
-  FC,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 import logo from "../../images/logo.png";
 import AuthBtn from "./AuthBtn";
 import { StyledHeader, StyledNav } from "./styles";
@@ -25,8 +19,7 @@ const Header: FC = () => {
     const resizeObserver = new ResizeObserver((entries) => {
       const currentHeaderHeight = getHeaderHeight();
 
-      if (headerHeight !== currentHeaderHeight)
-        setHeaderHeight(currentHeaderHeight);
+      if (headerHeight !== currentHeaderHeight) setHeaderHeight(currentHeaderHeight);
     });
 
     resizeObserver.observe(headerRef.current);
@@ -34,7 +27,7 @@ const Header: FC = () => {
     return function cleanup() {
       resizeObserver.disconnect();
     };
-  }, []);
+  });
   return (
     <>
       <StyledHeader ref={headerRef} className="position-fixed vw-100 shadow-sm">
