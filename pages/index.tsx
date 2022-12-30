@@ -1,3 +1,4 @@
+import AboutUs from "../components/about_us";
 import BestSeller from "../components/best_seller";
 import Landing from "../components/landing";
 import LastBlogs from "../components/last_blogs";
@@ -11,6 +12,7 @@ export default function Home() {
       <PopularCategories />
       <BestSeller />
       <LastBlogs />
+      <AboutUs />
     </MainLayout>
   );
 }
