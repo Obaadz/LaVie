@@ -24,5 +24,13 @@ export const StyledAboutUs = styled.section`
         top: -10px;
       }
     }
+
+    @media (max-width: 436px) {
+      img {
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
   }
 `;
