@@ -8,7 +8,7 @@ const nextConfig = {
   },
   env: {
     DB_URI:
-      "mongodb+srv://Obada:111999111@obaadz.fqqpqhp.mongodb.net/test?retryWrites=true&w=majority",
+      "mongodb+srv://Obada:111999111@obaadz.fqqpqhp.mongodb.net/LaVie?retryWrites=true&w=majority",
   },
 };
 
