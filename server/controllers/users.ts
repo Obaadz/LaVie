@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { User } from "../../types/users/User";
 import type { ResponsePostBody } from "../../types/users/ResponseBody";
 import mySchemas from "../models/Schemas";
+import { MongoDB } from "../utils";
 
 const INITIAL_RESPONSE_POST_BODY: ResponsePostBody = {
     message: "",
@@ -23,6 +24,8 @@ export async function addUserToDB(
   const responseBody: ResponsePostBody = INITIAL_RESPONSE_POST_BODY,
     user: User = request.body;
 
+  MongoDB.connect();
+
   const newUser = new mySchemas.Users({
     first_name: user.first_name,
     last_name: user.last_name,
@@ -43,5 +46,7 @@ export async function addUserToDB(
       responseBody.status = FAILED_POST.status;
     });
 
+  await MongoDB.disconnect();
+
   response.status(responseBody.status).send(responseBody);
-}     
+}

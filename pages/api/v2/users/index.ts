@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { IRequestMethod } from "../../../../types/RequestMethod";
 import type { RequestMethodsManager } from "../../../../types/RequestMethodsManager";
-import { connectMongo, getMethodTypeOrError } from "../../../../server/utils";
+import { getMethodTypeOrError } from "../../../../server/utils";
 import { addUserToDB } from "../../../../server/controllers/users";
-
-connectMongo();
 
 export default async function handler(
   request: NextApiRequest,
@@ -29,9 +27,7 @@ const POST: IRequestMethod = {
 
 const ERROR: IRequestMethod = {
   handle: (request, response) => {
-    response
-      .status(405)
-      .send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
+    response.status(405).send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
   },
 };
 

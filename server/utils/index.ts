@@ -1,4 +1,4 @@
-import connectMongo from "./connectMongo";
+import MongoDB from "./mongoDB";
 import getMethodTypeOrError from "./getMethodTypeOrError";
 
-export { connectMongo, getMethodTypeOrError };
+export { MongoDB, getMethodTypeOrError };
