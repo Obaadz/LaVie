@@ -7,8 +7,8 @@ const nextConfig = {
     styledComponents: true,
   },
   env: {
-    DB_URI:
-      "mongodb+srv://Obada:111999111@obaadz.fqqpqhp.mongodb.net/LaVie?retryWrites=true&w=majority",
+    DB_URI: "mongodb+srv://Obada:123@cluster0.nnh58nb.mongodb.net/LaVie",
+    SECRET: "Obaadz000",
   },
 };
 
