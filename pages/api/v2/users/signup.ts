@@ -42,20 +42,14 @@ const POST: IRequestMethod = {
 
       await addUserToDB(user);
 
-      const responseBody: ResponsePostBody = {
-        message: "User has been created",
-        isSuccess: true,
-        token,
-      };
-
-      response.status(201).send(responseBody);
+      response
+        .status(201)
+        .send({ message: "User registered successfully", isSuccess: true, token });
     } catch (err: any) {
-      const responseBody: ResponsePostBody = {
+      response.status(409).send({
         message: err.message,
         isSuccess: false,
-      };
-
-      response.status(409).send(responseBody);
+      });
     }
   },
 };

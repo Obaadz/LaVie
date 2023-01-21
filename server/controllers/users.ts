@@ -4,16 +4,22 @@ import mySchemas, { IUser } from "../models/Schemas";
 import { MongoDB } from "../utils";
 
 export async function addUserToDB(user: User) {
-  await MongoDB.connect();
+  try {
+    await MongoDB.connect();
 
-  const newUser = new mySchemas.Users({ ...user });
+    const newUser = new mySchemas.Users({ ...user });
 
-  await newUser.save().catch((err: MongooseError) => {
-    if (err.message.search("duplicate"))
-      throw new Error("User already registered with this email");
+    await newUser.save().catch((err: MongooseError) => {
+      if (err.message.search("duplicate"))
+        throw new Error("User already registered with this email");
 
-    throw new Error(err.message);
-  });
+      throw new Error(err.message);
+    });
+
+    return true;
+  } finally {
+    await MongoDB.disconnect();
+  }
 }
 
 export async function verifyUser(user: Pick<User, "email" | "password">) {
