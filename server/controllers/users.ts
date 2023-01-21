@@ -1,6 +1,6 @@
-import type { MongooseError } from "mongoose";
+import type { Document, MongooseError } from "mongoose";
 import type { User } from "../../types/users/User";
-import mySchemas from "../models/Schemas";
+import mySchemas, { IUser } from "../models/Schemas";
 import { MongoDB } from "../utils";
 
 export async function addUserToDB(user: User) {
@@ -14,4 +14,23 @@ export async function addUserToDB(user: User) {
 
     throw new Error(err.message);
   });
+}
+
+export async function verifyUser(user: Pick<User, "email" | "password">) {
+  try {
+    await MongoDB.connect();
+
+    const dbUser: IUser | null = await mySchemas.Users.findOne({
+      email: user.email,
+    });
+
+    if (!dbUser) throw new Error("User not found");
+
+    if (!(dbUser.email === user.email && dbUser.password === user.password))
+      throw new Error("Invalid email or password");
+
+    return true;
+  } finally {
+    await MongoDB.disconnect();
+  }
 }
