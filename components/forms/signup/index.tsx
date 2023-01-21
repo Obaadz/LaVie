@@ -49,7 +49,7 @@ async function handleSignUp(e: FormEvent<HTMLFormElement>, userData: User) {
     return;
 
   const { data }: AxiosResponse<ResponsePostBody> = await axios.post(
-    "/api/v2/users",
+    "/api/v2/users/signup",
     userData
   );
 
