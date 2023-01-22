@@ -2,8 +2,15 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { IRequestMethod } from "../../../../types/RequestMethod";
 import type { RequestMethodsManager } from "../../../../types/RequestMethodsManager";
 import type { Blog } from "../../../../types/blogs/Blog";
+import type {
+  ResponseGetBody,
+  ResponsePostBody,
+} from "../../../../types/blogs/ResponseBody";
 import { getMethodTypeOrError } from "../../../../server/utils";
-import { addBlogToDB } from "../../../../server/controllers/blogs";
+import {
+  addBlogToDB,
+  getBlogsOrderedLatestFromDB,
+} from "../../../../server/controllers/blogs";
 import jwt from "jsonwebtoken";
 
 export default async function handler(
@@ -22,15 +29,27 @@ export default async function handler(
 }
 
 const GET: IRequestMethod = {
-  handle: async (request, response: NextApiResponse) => {
+  handle: async (request, response: NextApiResponse<ResponseGetBody>) => {
     try {
-    } catch (err: any) {}
-    response.status(501).end();
+      const max: number = Number(request.query.max) || 0;
+
+      const blogs: Blog[] = await getBlogsOrderedLatestFromDB(max);
+
+      response.status(200).send({
+        message: "Blogs have been successfully retrieved and returned.",
+        isSuccess: true,
+        blogs,
+      });
+    } catch (err: any) {
+      response
+        .status(err.statusCode || 401)
+        .send({ message: err.message, isSuccess: false });
+    }
   },
 };
 
 const POST: IRequestMethod = {
-  handle: async (request, response: NextApiResponse) => {
+  handle: async (request, response: NextApiResponse<ResponsePostBody>) => {
     try {
       if (!process.env.SECRET) {
         console.log("No secret key defined");
@@ -43,7 +62,7 @@ const POST: IRequestMethod = {
 
       const blog: Omit<Blog, "createdAt"> = request.body.blog;
 
-      if (!(blog.image && blog.paragraph && blog.title))
+      if (!(blog?.image && blog?.paragraph && blog?.title))
         throw new Error("Please fill blogs fields...");
 
       await addBlogToDB(blog);
@@ -66,6 +85,7 @@ const ERROR: IRequestMethod = {
 };
 
 const METHODS: RequestMethodsManager = {
+  GET,
   POST,
   ERROR,
 };
