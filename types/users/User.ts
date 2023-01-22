@@ -4,3 +4,5 @@ export type User = {
   email: string;
   password: string;
 };
+
+export interface IUserDocument extends Document, User {}

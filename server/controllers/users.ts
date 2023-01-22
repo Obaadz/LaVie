@@ -1,6 +1,6 @@
-import type { Document, MongooseError } from "mongoose";
-import type { User } from "../../types/users/User";
-import mySchemas, { IUser } from "../models/Schemas";
+import type { MongooseError } from "mongoose";
+import type { User, IUserDocument } from "../../types/users/User";
+import mySchemas from "../models/Schemas";
 import { MongoDB } from "../utils";
 
 export async function addUserToDB(user: User) {
@@ -26,7 +26,7 @@ export async function verifyUser(user: Pick<User, "email" | "password">) {
   try {
     await MongoDB.connect();
 
-    const dbUser: IUser | null = await mySchemas.Users.findOne({
+    const dbUser: IUserDocument | null = await mySchemas.Users.findOne({
       email: user.email,
     });
 
