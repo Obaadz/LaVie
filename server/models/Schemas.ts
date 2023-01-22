@@ -11,6 +11,7 @@ const usersSchema = new Schema<IUserDocument>({
 
 const blogsSchema = new Schema<IBlogDocument>({
   image: {
+    _id: false,
     type: {
       data: { type: Buffer, required: true },
       contentType: { type: String, required: true },
