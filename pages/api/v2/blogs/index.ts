@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { IRequestMethod } from "../../../../types/RequestMethod";
 import type { RequestMethodsManager } from "../../../../types/RequestMethodsManager";
 import type { Blog } from "../../../../types/blogs/Blog";
 import type {
@@ -11,7 +10,8 @@ import {
   addBlogToDB,
   getBlogsOrderedLatestFromDB,
 } from "../../../../server/controllers/blogs";
-import MethodWithVerifyToken from "../../../../server/utils/classes/RequestMethodWithVerifyToken";
+import RequestMethod from "../../../../server/utils/classes/RequestMethod";
+import RequestMethodWithVerifyToken from "../../../../server/utils/classes/RequestMethodWithVerifyToken";
 
 export default async function handler(
   request: NextApiRequest,
@@ -28,8 +28,8 @@ export default async function handler(
   response.end();
 }
 
-const GET: IRequestMethod = {
-  handle: async (request, response: NextApiResponse<ResponseGetBody>) => {
+const GET = new RequestMethod(
+  async (request, response: NextApiResponse<ResponseGetBody>) => {
     try {
       const max: number = Number(request.query.max) || 0;
 
@@ -45,9 +45,10 @@ const GET: IRequestMethod = {
         .status(err.statusCode || 401)
         .send({ message: err.message, isSuccess: false });
     }
-  },
-};
-const POST = new MethodWithVerifyToken(
+  }
+);
+
+const POST = new RequestMethodWithVerifyToken(
   async (request, response: NextApiResponse<ResponsePostBody>) => {
     try {
       POST.verifyToken(request.body.token);
@@ -70,11 +71,9 @@ const POST = new MethodWithVerifyToken(
   }
 );
 
-const ERROR: IRequestMethod = {
-  handle: (request, response) => {
-    response.status(405).send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
-  },
-};
+const ERROR = new RequestMethod((request, response) => {
+  response.status(405).send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
+});
 
 const METHODS: RequestMethodsManager = {
   GET,

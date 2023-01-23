@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { IRequestMethod } from "../../../../types/RequestMethod";
 import type { User } from "../../../../types/users/User";
 import type { ResponsePostBody } from "../../../../types/users/ResponseBody";
 import type { RequestMethodsManager } from "../../../../types/RequestMethodsManager";
 import { getMethodTypeOrError } from "../../../../server/utils";
 import { addUserToDB } from "../../../../server/controllers/users";
+import RequestMethod from "../../../../server/utils/classes/RequestMethod";
 import jwt from "jsonwebtoken";
 
 export default async function handler(
@@ -22,8 +22,8 @@ export default async function handler(
   response.end();
 }
 
-const POST: IRequestMethod = {
-  handle: async (request, response: NextApiResponse<ResponsePostBody>) => {
+const POST = new RequestMethod(
+  async (request, response: NextApiResponse<ResponsePostBody>) => {
     try {
       if (!process.env.SECRET) {
         console.log("No secret key defined");
@@ -51,14 +51,12 @@ const POST: IRequestMethod = {
         isSuccess: false,
       });
     }
-  },
-};
+  }
+);
 
-const ERROR: IRequestMethod = {
-  handle: (request, response) => {
-    response.status(405).send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
-  },
-};
+const ERROR = new RequestMethod((request, response) => {
+  response.status(405).send({ message: "THIS REQUEST IS NOT ALLOWED", status: 405 });
+});
 
 const METHODS: RequestMethodsManager = {
   POST,
