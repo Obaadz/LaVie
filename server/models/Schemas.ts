@@ -34,7 +34,7 @@ const categoriesSchema = new Schema<ICategoryDocument>({
     },
     required: true,
   },
-  title: { type: String, required: true },
+  title: { type: String, required: true, unique: true },
   isPopular: { type: Boolean, default: false },
 });
 
@@ -47,7 +47,8 @@ const productsSchema = new Schema<IProductDocument>({
     },
     required: true,
   },
-  title: { type: String, required: true },
+  title: { type: String, required: true, unique: true },
+  category: { type: Schema.Types.ObjectId, ref: "categories", required: true },
   price: { type: Number, min: 1 },
   isPopular: { type: Boolean, default: false },
 });
