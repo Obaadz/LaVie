@@ -11,7 +11,7 @@ import {
   addBlogToDB,
   getBlogsOrderedLatestFromDB,
 } from "../../../../server/controllers/blogs";
-import jwt from "jsonwebtoken";
+import MethodWithVerifyToken from "../../../../server/utils/classes/RequestMethodWithVerifyToken";
 
 export default async function handler(
   request: NextApiRequest,
@@ -47,18 +47,10 @@ const GET: IRequestMethod = {
     }
   },
 };
-
-const POST: IRequestMethod = {
-  handle: async (request, response: NextApiResponse<ResponsePostBody>) => {
+const POST = new MethodWithVerifyToken(
+  async (request, response: NextApiResponse<ResponsePostBody>) => {
     try {
-      if (!process.env.SECRET) {
-        console.log("No secret key defined");
-
-        throw { message: "Server error", statusCode: 503 };
-      }
-      const token: string = request.body.token;
-
-      jwt.verify(token, process.env.SECRET);
+      POST.verifyToken(request.body.token);
 
       const blog: Omit<Blog, "createdAt"> = request.body.blog;
 
@@ -75,8 +67,8 @@ const POST: IRequestMethod = {
         .status(err.statusCode || 401)
         .send({ message: err.message, isSuccess: false });
     }
-  },
-};
+  }
+);
 
 const ERROR: IRequestMethod = {
   handle: (request, response) => {
