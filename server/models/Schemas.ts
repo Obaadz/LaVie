@@ -42,7 +42,7 @@ const Users =
 const Blogs =
   mongoose.models.blogs || mongoose.model<IBlogDocument>("blogs", blogsSchema);
 const Categories =
-  mongoose.models.Categories ||
+  mongoose.models.categories ||
   mongoose.model<ICategoryDocument>("categories", categoriesSchema);
 
 const mySchemas = {
