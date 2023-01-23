@@ -7,7 +7,7 @@ export async function addCategoryToDB(category: Category) {
   try {
     await MongoDB.connect();
 
-    const newCategory = new mySchemas.Blogs({ ...category });
+    const newCategory = new mySchemas.Categories({ ...category });
 
     await newCategory.save().catch((err: MongooseError) => {
       throw new Error(err.message);
