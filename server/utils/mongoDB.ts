@@ -6,18 +6,14 @@ export default class MongoDB {
   static async connect() {
     if (!MongoDB.DB_URI) throw new Error("DB_URI environment variable not found...");
 
-    if (!MongoDB.#isAlreadyConnected())
-      await mongoose.connect(MongoDB.DB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+    if (!MongoDB.isAlreadyConnected()) await mongoose.connect(MongoDB.DB_URI);
   }
 
   static async disconnect() {
-    if (MongoDB.#isAlreadyConnected) await mongoose.disconnect();
+    if (MongoDB.isAlreadyConnected()) await mongoose.disconnect();
   }
 
-  static #isAlreadyConnected() {
+  private static isAlreadyConnected() {
     return mongoose.connection.readyState === 1 ? true : false;
   }
 }
