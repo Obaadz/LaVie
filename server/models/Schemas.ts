@@ -62,7 +62,7 @@ const Categories =
   mongoose.model<ICategoryDocument>("categories", categoriesSchema);
 const Products =
   mongoose.models.products ||
-  mongoose.model<IProductDocument>("products", categoriesSchema);
+  mongoose.model<IProductDocument>("products", productsSchema);
 
 const mySchemas = {
   Users,

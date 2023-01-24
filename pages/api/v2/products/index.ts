@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { RequestMethodsManager } from "../../../../types/RequestMethodsManager";
-import type { Category } from "../../../../types/categories/Category";
+import type { Product } from "../../../../types/products/Product";
 import type {
   ResponseGetBody,
   ResponsePostBody,
-} from "../../../../types/categories/ResponseBody";
+} from "../../../../types/products/ResponseBody";
 import { getMethodTypeOrError } from "../../../../server/utils";
 import {
-  addCategoryToDB,
-  getAllCategoriesFromDB,
-  getPopularCategoriesFromDB,
-} from "../../../../server/controllers/categories";
+  addProductToDB,
+  getAllProductsFromDB,
+  getPopularProductsFromDB,
+} from "../../../../server/controllers/products";
 import RequestMethod from "../../../../server/utils/classes/RequestMethod";
 import RequestMethodWithVerifyToken from "../../../../server/utils/classes/RequestMethodWithVerifyToken";
 
@@ -32,17 +32,17 @@ export default async function handler(
 const GET = new RequestMethod(
   async (request, response: NextApiResponse<ResponseGetBody>) => {
     try {
-      const categories: Category[] =
+      const products: Product[] =
         request.query.only_popular == "true"
-          ? await getPopularCategoriesFromDB()
-          : await getAllCategoriesFromDB();
+          ? await getPopularProductsFromDB()
+          : await getAllProductsFromDB();
       const message =
-        request.query.only_popular == "true" ? "Popular categories" : "All categories";
+        request.query.only_popular == "true" ? "Popular products" : "All Products";
 
       response.status(200).send({
         message: message + "  have been successfully retrieved and returned.",
         isSuccess: true,
-        categories,
+        products,
       });
     } catch (err: any) {
       response
@@ -57,16 +57,16 @@ const POST = new RequestMethodWithVerifyToken(
     try {
       POST.verifyToken(request.body.token);
 
-      const category: Category = request.body.category;
+      const product: Product = request.body.product;
 
-      if (!(category?.image && category?.title))
-        throw new Error("Please fill category fields...");
+      if (!(product?.image && product?.title))
+        throw new Error("Please fill product fields...");
 
-      await addCategoryToDB(category);
+      await addProductToDB(product);
 
       response
         .status(201)
-        .send({ message: "Category created successfully", isSuccess: true });
+        .send({ message: "Product created successfully", isSuccess: true });
     } catch (err: any) {
       response
         .status(err.statusCode || 401)
