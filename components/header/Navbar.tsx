@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FC } from "react";
 import logo from "../../images/logo.png";
 import AuthBtn from "./AuthBtn";
-import NavItem, { NavItemProps } from "./NavItem";
+import NavItem, { Props as NavItemProps } from "./NavItem";
 import { StyledNav } from "./styles";
 
 const navLinks: NavItemProps[] = [

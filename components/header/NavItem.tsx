@@ -22,4 +22,4 @@ const NavItem: FC<Props> = ({ title, href, isActive }) => {
 };
 
 export default NavItem;
-export type { Props as NavItemType };
+export type { Props };
