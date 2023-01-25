@@ -1,27 +1,38 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
-import { User } from "../../types/users/User";
+import { FC } from "react";
+import { FieldError, UseFormRegister } from "react-hook-form";
+import { UserForm } from "../../types/users/User";
 
 type Props = {
-  setUserData: Dispatch<SetStateAction<User>>;
+  register: UseFormRegister<UserForm>;
+  emailError?: FieldError;
 };
 
-const EmailInput: FC<Props> = ({ setUserData }) => {
+const REGEX_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+const EmailInput: FC<Props> = ({ register, emailError }) => {
   return (
-    <div className="mb-3">
+    <div
+      className={`${
+        emailError ? (emailError?.message ? "mb-1 error" : "mb-3 error") : "mb-3"
+      }`}
+    >
       <label htmlFor="exampleInputEmail1" className="form-label">
         Email
       </label>
       <input
         type="email"
         className="form-control"
+        {...register("email", {
+          required: "Email is required",
+          pattern: REGEX_PATTERN,
+        })}
         id="exampleInputEmail1"
         aria-describedby="emailHelp"
-        onChange={(e) => {
-          setUserData((prev) => {
-            return { ...prev, email: e.target.value };
-          });
-        }}
       />
+      <span className="error-span">
+        <small>{emailError && emailError?.message}</small>
+      </span>
     </div>
   );
 };

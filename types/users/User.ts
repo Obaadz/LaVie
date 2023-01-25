@@ -5,4 +5,6 @@ export type User = {
   password: string;
 };
 
+export type UserForm = Partial<User> & { confirm_password?: string };
+
 export interface IUserDocument extends Document, User {}

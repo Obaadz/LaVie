@@ -1,44 +1,79 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
-import { User } from "../../../types/users/User";
+import { FC } from "react";
+import { FieldError, UseFormRegister } from "react-hook-form";
+import { UserForm } from "../../../types/users/User";
 
 type Props = {
-  setUserData: Dispatch<SetStateAction<User>>;
+  register: UseFormRegister<UserForm>;
+  firstNameError?: FieldError;
+  lastNameError?: FieldError;
 };
 
-const FirstLastNameInputs: FC<Props> = ({ setUserData }) => {
+const REGEX_PATTERN = /^[A-Za-z ]{2,}$/;
+
+const FirstLastNameInputs: FC<Props> = ({ register, firstNameError, lastNameError }) => {
   return (
-    <div className="mb-3 d-flex flex-column flex-md-row justify-content-between gap-3 gap-md-5">
-      <div className="w-100">
+    <div
+      className={`${
+        firstNameError || lastNameError ? "mb-1" : "mb-3"
+      } d-flex flex-column flex-md-row justify-content-between gap-3 gap-md-5`}
+    >
+      <div className={`${firstNameError ? "w-100 error" : "w-100"}`}>
         <label htmlFor="InputFirstName" className="form-label">
           First Name
         </label>
         <input
           type="text"
           className="form-control"
+          {...register("first_name", {
+            required: "First name is required",
+            minLength: {
+              value: 3,
+              message: "Minimum length of name is 3 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "Maximum length of name is 20 characters",
+            },
+            pattern: {
+              value: REGEX_PATTERN,
+              message: "Invalid name, use characters only please.",
+            },
+          })}
           id="InputFirstName"
           aria-describedby="FirstName"
-          onChange={(e) => {
-            setUserData((prev) => {
-              return { ...prev, first_name: e.target.value };
-            });
-          }}
         />
+        <span className="error-span">
+          <small>{firstNameError && firstNameError?.message}</small>
+        </span>
       </div>
-      <div className="w-100">
+      <div className={`${lastNameError ? "w-100 error" : "w-100"}`}>
         <label htmlFor="InputLastName" className="form-label">
           Last Name
         </label>
         <input
           type="text"
           className="form-control"
+          {...register("last_name", {
+            required: "Last name is required",
+            minLength: {
+              value: 3,
+              message: "Minimum length of name is 3 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "Maximum length of name is 20 characters",
+            },
+            pattern: {
+              value: REGEX_PATTERN,
+              message: "Invalid name, use characters only please.",
+            },
+          })}
           id="InputLastName"
           aria-describedby="LastName"
-          onChange={(e) => {
-            setUserData((prev) => {
-              return { ...prev, last_name: e.target.value };
-            });
-          }}
         />
+        <span className="error-span">
+          <small>{lastNameError && lastNameError?.message}</small>
+        </span>
       </div>
     </div>
   );

@@ -24,6 +24,28 @@ export const StyledForm = styled.form`
   button:focus {
     box-shadow: 0 0 0 0.25rem rgb(151 151 151 / 25%);
   }
+  .error-span {
+    user-select: none;
+    left: 20px;
+    color: #ff0018;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .error {
+    position: relative;
+    label {
+      color: #ff0018;
+    }
+
+    .form-control:focus,
+    .form-control {
+      box-shadow: 0 0 0 0.125rem #ff0018;
+    }
+
+    .error-span {
+      opacity: 1;
+    }
+  }
 `;
 
 export const StyledOAuthHeader = styled.div`
