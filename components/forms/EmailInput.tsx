@@ -1,17 +1,24 @@
 import { FC } from "react";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError, UseFormClearErrors, UseFormRegister } from "react-hook-form";
 import { UserForm } from "../../types/users/User";
 import ErrorSpan from "./ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
   emailError?: FieldError;
+  invalidUserOrPasswordError?: FieldError;
+  clearErrors?: UseFormClearErrors<UserForm>;
 };
 
 const REGEX_PATTERN =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-const EmailInput: FC<Props> = ({ register, emailError }) => {
+const EmailInput: FC<Props> = ({
+  register,
+  emailError,
+  invalidUserOrPasswordError,
+  clearErrors,
+}) => {
   return (
     <div
       className={`${
@@ -30,6 +37,13 @@ const EmailInput: FC<Props> = ({ register, emailError }) => {
         })}
         id="exampleInputEmail1"
         aria-describedby="emailHelp"
+        onChange={
+          invalidUserOrPasswordError && clearErrors
+            ? () => {
+                clearErrors("invalid_user_or_password");
+              }
+            : undefined
+        }
       />
       {emailError && <ErrorSpan error={emailError} />}
     </div>

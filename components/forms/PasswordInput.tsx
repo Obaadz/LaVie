@@ -1,14 +1,21 @@
 import { FC } from "react";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError, UseFormClearErrors, UseFormRegister } from "react-hook-form";
 import { UserForm } from "../../types/users/User";
 import ErrorSpan from "./ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
   passwordError?: FieldError;
+  invalidUserOrPasswordError?: FieldError;
+  clearErrors?: UseFormClearErrors<UserForm>;
 };
 
-const PasswordInput: FC<Props> = ({ register, passwordError }) => {
+const PasswordInput: FC<Props> = ({
+  register,
+  passwordError,
+  invalidUserOrPasswordError,
+  clearErrors,
+}) => {
   return (
     <div
       className={`${
@@ -24,6 +31,13 @@ const PasswordInput: FC<Props> = ({ register, passwordError }) => {
         className="form-control"
         {...register("password", { required: "Password is required" })}
         id="exampleInputPassword1"
+        onChange={
+          invalidUserOrPasswordError && clearErrors
+            ? () => {
+                clearErrors("invalid_user_or_password");
+              }
+            : undefined
+        }
       />
       {passwordError && <ErrorSpan error={passwordError} />}
     </div>
