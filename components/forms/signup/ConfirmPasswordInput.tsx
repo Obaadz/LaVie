@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FieldError, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { UserForm } from "../../../types/users/User";
+import ErrorSpan from "../ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
@@ -33,9 +34,7 @@ const ConfirmPasswordInput: FC<Props> = ({ register, watch, confirmPasswordError
         })}
         id="exampleInputPassword2"
       />
-      <span className="error-span">
-        <small>{confirmPasswordError && confirmPasswordError?.message}</small>
-      </span>
+      {confirmPasswordError && <ErrorSpan error={confirmPasswordError} />}
     </div>
   );
 };

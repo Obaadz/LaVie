@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
 import { UserForm } from "../../../types/users/User";
+import ErrorSpan from "../ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
@@ -42,9 +43,7 @@ const FirstLastNameInputs: FC<Props> = ({ register, firstNameError, lastNameErro
           id="InputFirstName"
           aria-describedby="FirstName"
         />
-        <span className="error-span">
-          <small>{firstNameError && firstNameError?.message}</small>
-        </span>
+        {firstNameError && <ErrorSpan error={firstNameError} />}
       </div>
       <div className={`${lastNameError ? "w-100 error" : "w-100"}`}>
         <label htmlFor="InputLastName" className="form-label">
@@ -71,9 +70,7 @@ const FirstLastNameInputs: FC<Props> = ({ register, firstNameError, lastNameErro
           id="InputLastName"
           aria-describedby="LastName"
         />
-        <span className="error-span">
-          <small>{lastNameError && lastNameError?.message}</small>
-        </span>
+        {lastNameError && <ErrorSpan error={lastNameError} />}
       </div>
     </div>
   );

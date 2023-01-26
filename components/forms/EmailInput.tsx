@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
 import { UserForm } from "../../types/users/User";
+import ErrorSpan from "./ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
@@ -30,9 +31,7 @@ const EmailInput: FC<Props> = ({ register, emailError }) => {
         id="exampleInputEmail1"
         aria-describedby="emailHelp"
       />
-      <span className="error-span">
-        <small>{emailError && emailError?.message}</small>
-      </span>
+      {emailError && <ErrorSpan error={emailError} />}
     </div>
   );
 };

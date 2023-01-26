@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
 import { UserForm } from "../../types/users/User";
+import ErrorSpan from "./ErrorSpan";
 
 type Props = {
   register: UseFormRegister<UserForm>;
@@ -24,9 +25,7 @@ const PasswordInput: FC<Props> = ({ register, passwordError }) => {
         {...register("password", { required: "Password is required" })}
         id="exampleInputPassword1"
       />
-      <span className="error-span">
-        <small>{passwordError && passwordError?.message}</small>
-      </span>
+      {passwordError && <ErrorSpan error={passwordError} />}
     </div>
   );
 };
