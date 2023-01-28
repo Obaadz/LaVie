@@ -13,6 +13,8 @@ export const StyledForm = styled.form`
     --bs-btn-hover-border-color: rgba(var(--secondary-color));
     --bs-btn-active-border-color: rgb(var(--primary-color));
     --bs-btn-active-bg: rgb(var(--primary-color));
+    --bs-btn-disabled-bg: rgb(var(--primary-color));
+    --bs-btn-disabled-border-color: rgb(var(--primary-color));
   }
 
   label {

@@ -2,9 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/users/User";
 
-export interface UserState extends Partial<User> {}
+export interface UserState {
+  isLoading: boolean;
+  user: Partial<User>;
+}
 
-const initialState: UserState = {};
+const initialState: UserState = {
+  isLoading: true,
+  user: {},
+};
 
 export const userSlice = createSlice({
   name: "counter",
@@ -13,7 +19,15 @@ export const userSlice = createSlice({
     updateUser: (state, action: PayloadAction<Partial<User>>) => {
       const user = action.payload;
 
-      state = { ...state, ...user };
+      state = {
+        isLoading: false,
+        user: {
+          ...state.user,
+          ...user,
+        },
+      };
+
+      return state;
     },
   },
 });

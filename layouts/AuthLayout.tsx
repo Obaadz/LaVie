@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { ReactNode, Suspense, useEffect } from "react";
 import OAuth from "../components/forms/OAuth";
 import Header from "../components/header";
-import usePageLoading from "../hooks/usePageLoading";
 import { setBodyBackgroundColor } from "../pages/_app";
 import { StyledNav } from "./styles";
 type props = {
@@ -12,7 +11,6 @@ type props = {
 
 const AuthLayout = ({ children }: props) => {
   const router = useRouter();
-  const isPageLoading = usePageLoading(500);
 
   useEffect(() => {
     setBodyBackgroundColor("#fafbfb");
@@ -53,7 +51,7 @@ const AuthLayout = ({ children }: props) => {
       </StyledNav>
       <main>
         <div className="container mb-4">
-          {isPageLoading ? "Loading..." : children}
+          {children}
           <OAuth />
         </div>
       </main>

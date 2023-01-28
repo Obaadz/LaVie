@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
+import LoadUser from "../components/LoadUser";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <LoadUser>
+          <Component {...pageProps} />
+        </LoadUser>
       </Provider>
     </>
   );

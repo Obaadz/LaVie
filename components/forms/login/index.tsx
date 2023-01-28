@@ -8,8 +8,15 @@ import SignUpLink from "./SignUpLink";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { ResponsePostBody } from "../../../types/users/ResponseBody";
 import ErrorSpan from "../ErrorSpan";
+import saveTokenToCookies from "../../../utils/saveTokenToCookies";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../../redux/slices/userReducer";
+import getUserFromToken from "../../../utils/getUserFromToken";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,7 +29,15 @@ const LoginForm = () => {
       className="w-75 mx-auto px-md-5"
       onSubmit={handleSubmit(async (userForm) => {
         try {
-          await handleSignIn(userForm);
+          const token = await handleSignIn(userForm);
+
+          saveTokenToCookies(token);
+
+          const user = getUserFromToken(token);
+
+          dispatch(updateUser(user));
+
+          router.replace("/");
         } catch (err: any) {
           const errMessage: string = err?.message;
 
@@ -67,9 +82,7 @@ async function handleSignIn(userData: UserForm) {
       userData
     );
 
-    // TODO: send the token to redux.
-
-    return true;
+    return data.token as string;
   } catch (err: unknown | AxiosError) {
     if (axios.isAxiosError(err)) {
       throw {
@@ -77,6 +90,8 @@ async function handleSignIn(userData: UserForm) {
         message: err.response?.data?.message || "Server error",
       };
     }
+
+    throw { statusCode: 401, message: "Server error" };
   }
 }
 

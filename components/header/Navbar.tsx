@@ -1,10 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import logo from "../../images/logo.png";
+import { RootState } from "../../redux/store";
 import AuthBtn from "./AuthBtn";
 import NavItem, { Props as NavItemProps } from "./NavItem";
 import { StyledNav } from "./styles";
+import UserProfile from "./UserProfile";
 
 const navLinks: NavItemProps[] = [
   { title: "Home", href: "/", isActive: true },
@@ -26,6 +30,8 @@ const navItems = navLinks.map((navItem) => (
 ));
 
 const Navbar: FC = () => {
+  const userState = useSelector((state: RootState) => state.user);
+
   return (
     <StyledNav className="navbar navbar-expand-lg bg-light">
       <div className="container">
@@ -45,7 +51,23 @@ const Navbar: FC = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">{navItems}</ul>
-          <AuthBtn />
+
+          {userState.isLoading ? (
+            <ThreeDots
+              height="35"
+              width="35"
+              radius={9}
+              color="#1ABC00"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass="ms-5 ms-lg-0 me-lg-3"
+              visible={true}
+            />
+          ) : userState.user?.email ? (
+            <UserProfile user={userState.user} />
+          ) : (
+            <AuthBtn />
+          )}
         </div>
       </div>
     </StyledNav>
